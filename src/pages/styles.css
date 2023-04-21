@@ -9,12 +9,30 @@ html{
 }
 body{
     min-height: 100vh;
+    min-width: 100vw;
     background-color: rgb(213, 15, 15);
     font-family: 'Poppins', sans-serif;
 }
 
-.ddd{
-    height: 100px;
-    width: 100px;
-    background-color: blue;
+.main-container{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(33, 33, 59);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form1{
+    height: 300px;
+    width: 500px;
+    background-color: rgb(89, 60, 98);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form1 label{
+    margin-right: 10px;
 }
