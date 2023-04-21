@@ -1,0 +1,20 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box; 
+}
+html{
+    scroll-behavior: smooth;
+    
+}
+body{
+    min-height: 100vh;
+    background-color: rgb(213, 15, 15);
+    font-family: 'Poppins', sans-serif;
+}
+
+.ddd{
+    height: 100px;
+    width: 100px;
+    background-color: blue;
+}

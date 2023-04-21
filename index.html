@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+    <link rel="stylesheet" href="/src/pages/styles.css">
     <title>Document</title>
 </head>
 <body>
-    <div>tite</div>
+    <div class="ddd">tite</div>
 
     <form id="form1">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br>
 
-        <button type="submit" id="submit">Submit</button>
+        <button type="submit" id="submit">Submiet</button>
     </form>
 
 
@@ -32,6 +32,7 @@
             console.log("tite");
         }
         test()
+
 
         async function insertData(name){
         const {data:existingData,error}=await _supabase
