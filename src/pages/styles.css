@@ -21,6 +21,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .form1{
@@ -35,4 +36,10 @@ body{
 
 .form1 label{
     margin-right: 10px;
+}
+
+.form1 button{
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
 }
