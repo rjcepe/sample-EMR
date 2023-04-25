@@ -40,13 +40,12 @@ body{
 }
 
 .tablee th{
-    border: 3px solid rgb(255, 255, 255);
+    border: 3px solid rgb(176, 168, 168);
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
 }
 
 .tablee button{
-    background-color: rgb(255, 255, 255);
     border: none;
     width: 50px;
     padding: 5px 0px 5px 0px;
@@ -56,17 +55,25 @@ body{
 }
 
 .tablee button:hover{
-    background-color: rgb(73, 73, 73);
+    background-color: rgb(31, 210, 103);
+    color: rgb(0, 0, 0);
+}
+.edit{
+    background-color: rgb(115, 94, 145);
+    color: rgb(255, 255, 255);
+
+}
+.del{
+    background-color: rgb(192, 64, 64);
     color: white;
 }
-
 .tablee .butts{
     border: none;
 }
 
 /* width */
 .tablee ::-webkit-scrollbar {
-    width: 5px;
+    width: 12px;
   }
   
   /* Track */
