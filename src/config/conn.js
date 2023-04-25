@@ -5,7 +5,7 @@ const SUPABASE_ANON_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhY
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 const test = () =>{
     console.log(supabase);
-    console.log("tite");
+    console.log("hello");
 }
 test()
 
@@ -17,7 +17,7 @@ async function insertData(name){
 
     if(error)
     {
-        console.log("tite1",error.message)
+        console.log("errorrrr",error.message)
         return
     }
     if(existingData.length>0)

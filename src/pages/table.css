@@ -64,3 +64,22 @@ body{
     border: none;
 }
 
+/* width */
+.tablee ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+.tablee ::-webkit-scrollbar-track {
+    background: #712929;
+  }
+  
+  /* Handle */
+.tablee ::-webkit-scrollbar-thumb {
+    background: #5b1ab0;
+  }
+  
+  /* Handle on hover */
+.tablee ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
