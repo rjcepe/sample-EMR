@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
     <link rel="stylesheet" href="/src/pages/styles.css">
     <title>Sample EMR</title>
 </head>
@@ -35,8 +35,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script>
-        const SUPABASE_URL = 'db.kyspqmaezagkdwtvyzrr.supabase.co'  
-        const SUPABASE_ANON_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImludWF3b2VoZGtvYXZiaXFoZWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODUzNzA4MjAsImV4cCI6MjAwMDk0NjgyMH0.iDwQ4vHOLsazyNbFLlUuVgCyjgOBoQ0xT95KjjVA9E4'
+        const SUPABASE_URL = 'https://kyspqmaezagkdwtvyzrr.supabase.co'  
+        const SUPABASE_ANON_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5c3BxbWFlemFna2R3dHZ5enJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE5OTM5MDIsImV4cCI6MTk5NzU2OTkwMn0.CRg9SDoujs_bBJZUgsEWf_B5Y8WX2o9J-uyZpv-D1pM'
 
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
         const test = () =>{
