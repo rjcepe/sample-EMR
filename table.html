@@ -30,26 +30,38 @@
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
         async function loadTableData() {
+            const { data: tableData, error } = await _supabase
+                .from('table_name')
+                .select('*')
+
+            if (error) {
+                console.log('Error loading table data:', error.message)
+                return
+            }
+
+            const tableBody = document.querySelector('#table1 tbody')
+            if (tableData.length === 0) {
+            const newRow = document.createElement('tr')
+            newRow.innerHTML = `
+            <td colspan="4" style="text-align: center;">No data available</td>
+            `
+            tableBody.appendChild(newRow)
+        } else {
             tableData.forEach((row) => {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <th>${row.id}</th>
-            <th>${row.name}</th>
-            <th>${row.created_at}</th>
-            <td><img src="${getPublicImageUrl(row.image_filename)}" alt="Image"></td>
-            <td class="butts">
+            const newRow = document.createElement('tr')
+            newRow.innerHTML = `
+                <th>${row.id}</th>
+                <th>${row.name}</th>
+                <th>${row.created_at}</th>
+                <td class="butts">
                 <button class="edit" onclick="editRecord(${row.id})">Edit</button>
                 <button class="del" onclick="deleteData(${row.id})">Delete</button>
-            </td>
-        `;
-        tableBody.appendChild(newRow);
-    });
-}
-
-function getPublicImageUrl(filename) {
-    return `${SUPABASE_URL}/storage/v1/object/sample/folder/${filename}`;
-}
-
+                </td>
+            `
+            tableBody.appendChild(newRow)
+            })
+        }
+        }
         //====================================
         async function deleteData(id) {
             const { data: deletedData, error } = await _supabase
