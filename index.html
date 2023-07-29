@@ -41,7 +41,7 @@
             console.log(supabase);
             console.log("connection is tagumpay, pahinga ka na.");
         }
-        test()
+        // test()
 
 //insert data fucntion =======================================
       async function insertData(name){
@@ -102,7 +102,7 @@
   }
 
   // Upload the file to Supabase bucket
-  const storage = supabase.storage.from('storage');
+  const storage = _supabase.storage.from('storage');
   storage.upload(`folder/${file.name}`, file)
     .then(response => {
       console.log('File uploaded successfully:', response);
