@@ -102,7 +102,7 @@
   }
 
   // Upload the file to Supabase bucket
-  const storage = _supabase.storage.from('storage');
+  const storage = _supabase.storage.from('records');
   storage.upload(`folder/${file.name}`, file)
     .then(response => {
       console.log('File uploaded successfully:', response);
