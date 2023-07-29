@@ -92,25 +92,28 @@
         })
 
     //add image
-    function uploadFile() {
-  const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
+    async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
 
-  if (!file) {
-    alert('Please select a file first.');
-    return;
-  }
+            if (!file) {
+                alert('Please select a file first.');
+                return;
+            }
 
-  // Upload the file to Supabase bucket
-  const storage = _supabase.storage.from('records');
-  storage.upload(`folder/${file.name}`, file)
-    .then(response => {
-      console.log('File uploaded successfully:', response);
-    })
-    .catch(error => {
-      console.error('Error uploading file:', error);
-    });
-}
+            try {
+                // Upload the file to Supabase bucket
+                const { data, error } = await supabase.storage.from('records').upload(`folder/${file.name}`, file);
+
+                if (error) {
+                    console.error('Error uploading file:', error);
+                } else {
+                    console.log('File uploaded successfully:', data);
+                }
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        }
 
         //===================================================
     
