@@ -18,11 +18,9 @@
           <button type="submit" id="submit">Create</button>
       </form>
 
-      <form id="form2">
-        <input type="text" name="userID" id="user_ID" placeholder="Enter User ID...">
-        <input type="password" name="password" id="pw" placeholder="Enter Password...">
-        <button type="submit" id="login">Login</button>
-    </form>
+      <input type="file" id="fileInput">
+      <button onclick="uploadFile()">Upload File</button>
+      
 
       <a class="table" href="/table.html"> View table</a>
 
@@ -92,6 +90,27 @@
           location.reload();
         //   window.location.href = '/src/index/index.html'
         })
+
+    //add image
+    function uploadFile() {
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert('Please select a file first.');
+    return;
+  }
+
+  // Upload the file to Supabase bucket
+  const storage = supabase.storage.from('storage');
+  storage.upload(`folder/${file.name}`, file)
+    .then(response => {
+      console.log('File uploaded successfully:', response);
+    })
+    .catch(error => {
+      console.error('Error uploading file:', error);
+    });
+}
 
         //===================================================
     
