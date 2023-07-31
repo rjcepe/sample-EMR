@@ -85,7 +85,7 @@
 
             // Get form field values
             const name = $('#name').val();
-            
+
             const medformInput = document.getElementById('medform');
             const medformFile = medformInput.files[0];
 
@@ -114,7 +114,7 @@
                     return;
                 }
 
-                const medformURL = data.key; // Use data.key instead of data.Key
+                const medformURL = medformFile.url; // Use data.key instead of data.Key
 
                 // Create JSONB object with the image URL
                 const medformJSONB = {
