@@ -17,6 +17,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Time Created</th>
+                <th>medform</th>
                 <th>Update</th>
             </tr>
         </table>
@@ -56,6 +57,7 @@
                 `
                     <th>${row.id}</th>
                     <th>${row.name}</th>
+                    <th>${row.created_at}</th>
                     <th>${row.created_at}</th>
                     <td class="butts">
                     <button class="edit" onclick="editRecord(${row.id})">Edit</button>

@@ -16,11 +16,13 @@
         <form id="form1" class="form1">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br>
+            <label for="medform">Upload Medform:</label>
+            <input type="file" id="medform" name="medform" required><br> //upload file to table
 
             <button type="submit" id="submit">Create</button>
         </form>
 
-        <input type="file" id="fileInput">
+        <input type="file" id="fileInput"> //upload file to storage
         <button onclick="uploadFile()">Upload File</button>
 
 
@@ -81,16 +83,53 @@
         }
 
         $('#form1').submit(async function (event) {
-            event.preventDefault()
+            event.preventDefault();
 
             // Get form field values
-            const name = $('#name').val()
+            const name = $('#name').val();
+            const medformInput = document.getElementById('medform');
+            const medformFile = medformInput.files[0];
 
-            // Insert data into Supabase table if it doesn't already exist
-            await insertData(name)
-            location.reload();
-            //   window.location.href = '/src/index/index.html'
-        })
+            // Perform the insert operation with both name and medform
+            try {
+                const { data: existingData, error } = await _supabase
+                    .from('table_name')
+                    .select('*')
+                    .eq('name', name);
+
+                if (error) {
+                    console.log("errorrr", error.message);
+                    return;
+                }
+
+                if (existingData.length > 1) {
+                    console.log("Already Existing", existingData);
+                    return;
+                }
+
+                // Convert the image data to JSONB format
+                const reader = new FileReader();
+                reader.readAsDataURL(medformFile);
+                reader.onloadend = async function () {
+                    const medformJSONB = {
+                        name: name,
+                        medform: reader.result,
+                    };
+
+                    // Insert data into Supabase table
+                    const { data, error } = await _supabase.from('table_name').insert(medformJSONB);
+
+                    if (error) {
+                        console.error('Error inserting data:', error.message);
+                    } else {
+                        console.log('Data inserted successfully:', data);
+                        location.reload();
+                    }
+                };
+            } catch (error) {
+                console.error('Error inserting data:', error.message);
+            }
+        });
 
         //add image
         async function uploadFile() {
