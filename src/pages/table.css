@@ -90,3 +90,8 @@ body{
 .tablee ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+.medf{
+    height: 50px;
+    width: 50px;
+}

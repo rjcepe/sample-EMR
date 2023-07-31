@@ -22,6 +22,8 @@
             </tr>
         </table>
         <a class="table" href="/index.html"> Go Back</a>
+
+        
     </div>
 
     <script>
@@ -64,7 +66,7 @@
                         <th>${row.id}</th>
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
-                        <td>${convertBase64ToImage(row.med_form)}</td>
+                        <td><img src="${convertBase64ToImage(row.med_form)}" class="medf" alt="medform"></td>
                         <td class="butts">
                             <button class="edit" onclick="editRecord(${row.id})">Edit</button>
                             <button class="del" onclick="deleteData(${row.id})">Delete</button>
