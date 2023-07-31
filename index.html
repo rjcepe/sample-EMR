@@ -131,7 +131,10 @@
                     location.reload();
                 }
 
-            });
+            } catch (error) {
+                console.error('Error inserting data:', error.message);
+            }
+        });
 
 
         //===================================================
