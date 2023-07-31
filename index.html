@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,21 +9,22 @@
     <link rel="stylesheet" href="/src/pages/styles.css">
     <title>Sample EMR</title>
 </head>
+
 <body>
     <div class="main-container">
 
-      <form id="form1" class="form1">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required><br>
-  
-          <button type="submit" id="submit">Create</button>
-      </form>
+        <form id="form1" class="form1">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
 
-      <input type="file" id="fileInput">
-      <button onclick="uploadFile()">Upload File</button>
-      
+            <button type="submit" id="submit">Create</button>
+        </form>
 
-      <a class="table" href="/table.html"> View table</a>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload File</button>
+
+
+        <a class="table" href="/table.html"> View table</a>
 
 
     </div>
@@ -33,66 +35,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <script>
-        const SUPABASE_URL = 'https://kyspqmaezagkdwtvyzrr.supabase.co'  
-        const SUPABASE_ANON_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5c3BxbWFlemFna2R3dHZ5enJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE5OTM5MDIsImV4cCI6MTk5NzU2OTkwMn0.CRg9SDoujs_bBJZUgsEWf_B5Y8WX2o9J-uyZpv-D1pM'
+        //define supabase connection
+        const SUPABASE_URL = 'https://kyspqmaezagkdwtvyzrr.supabase.co'
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5c3BxbWFlemFna2R3dHZ5enJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE5OTM5MDIsImV4cCI6MTk5NzU2OTkwMn0.CRg9SDoujs_bBJZUgsEWf_B5Y8WX2o9J-uyZpv-D1pM'
 
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-        const test = () =>{
+        const test = () => {
             console.log(supabase);
             console.log("connection is tagumpay, pahinga ka na.");
         }
         test();
 
-//insert data fucntion =======================================
-      async function insertData(name){
-        const {data:existingData,error}=await _supabase
-        .from('table_name')
-        .select('*')
-        .eq('name',name)
+        //insert data fucntion =======================================
+        async function insertData(name) {
+            const { data: existingData, error } = await _supabase
+                .from('table_name')
+                .select('*')
+                .eq('name', name)
 
-        if(error)
-        {
-            console.log("errorrr",error.message)
-            return
-        }
-        if(existingData.length>1)
-        {
-            console.log("Already Existing", existingData)
-            return
-        }
-    
-    // Define data object to insert
-          const data = {
-            name: name,
-          }
+            if (error) {
+                console.log("errorrr", error.message)
+                return
+            }
+            if (existingData.length > 1) {
+                console.log("Already Existing", existingData)
+                return
+            }
 
-    // Insert data into table
-          const { data: insertedData, error: insertError } = await _supabase
-            .from('table_name')
-            .insert(data)
-        
-    // Check for errors
-          if (insertError) {
-            console.log('Error inserting data:', insertError.message)
-          } else {
-            console.log('Data inserted successfully:', insertedData)
-          }
+            // Define data object to insert
+            const data = {
+                name: name,
+            }
+
+            // Insert data into table
+            const { data: insertedData, error: insertError } = await _supabase
+                .from('table_name')
+                .insert(data)
+
+            // Check for errors
+            if (insertError) {
+                console.log('Error inserting data:', insertError.message)
+            } else {
+                console.log('Data inserted successfully:', insertedData)
+            }
         }
 
-          $('#form1').submit(async function(event) {
-          event.preventDefault()
+        $('#form1').submit(async function (event) {
+            event.preventDefault()
 
-    // Get form field values
-          const name = $('#name').val()
+            // Get form field values
+            const name = $('#name').val()
 
-    // Insert data into Supabase table if it doesn't already exist
-          await insertData(name)
-          location.reload();
-        //   window.location.href = '/src/index/index.html'
+            // Insert data into Supabase table if it doesn't already exist
+            await insertData(name)
+            location.reload();
+            //   window.location.href = '/src/index/index.html'
         })
 
-    //add image
-    async function uploadFile() {
+        //add image
+        async function uploadFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
 
@@ -103,8 +104,7 @@
 
             try {
                 // Upload the file to Supabase bucket
-                const { data, error } = await _supabase.storage.from('records').upload(`folder/${file.name}`, file);
-
+                const { data, error } = await _supabase.storage.from('records').upload(`${file.name}`, file);
 
                 if (error) {
                     console.error('Error uploading file:', error);
@@ -117,7 +117,8 @@
         }
 
         //===================================================
-    
+
     </script>
 </body>
+
 </html>
