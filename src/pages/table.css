@@ -45,7 +45,7 @@ body{
     border-radius: 5px;
 }
 
-.tablee button{
+.edit, .del{
     border: none;
     width: 50px;
     padding: 5px 0px 5px 0px;
