@@ -58,7 +58,7 @@
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
                         <th class="butts"><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
-                            <button class="del" onclick="deleteData(${row.id}, ${row.med_form})">Delete</button></th>
+                            <button class="del" onclick="deleteData(${row.id})">Delete</button></th>
                             `;
                             tableBody.appendChild(newRow);
                         });
