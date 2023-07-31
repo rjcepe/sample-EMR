@@ -33,13 +33,7 @@
 
     </div>
 
-
-
-    <!-- <script src="/src/config/conn.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
     <script>
-        //define supabase connection
         const SUPABASE_URL = 'https://kyspqmaezagkdwtvyzrr.supabase.co'
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5c3BxbWFlemFna2R3dHZ5enJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE5OTM5MDIsImV4cCI6MTk5NzU2OTkwMn0.CRg9SDoujs_bBJZUgsEWf_B5Y8WX2o9J-uyZpv-D1pM'
 
@@ -50,7 +44,7 @@
         }
         test();
 
-        //insert data fucntion =======================================
+        //insert data function =======================================
         async function insertData(name) {
             const { data: existingData, error } = await _supabase
                 .from('table_name')
@@ -109,32 +103,37 @@
                     return;
                 }
 
-                // Convert the image data to JSONB format
-                const reader = new FileReader();
-                reader.readAsDataURL(medformFile);
-                
-                reader.onloadend = async function () {
-                    const medformJSONB = {
-                        name: name,
-                        med_form: reader.result,
-                    };
+                // Upload the file to Supabase storage
+                const { data, error: uploadError } = await _supabase.storage.from('records').upload(`${medformFile.name}`, medformFile);
 
-                    // Insert data into Supabase table
-                    const { data, error } = await _supabase.from('table_name').insert(medformJSONB);
+                if (uploadError) {
+                    console.error('Error uploading file:', uploadError);
+                    return;
+                }
 
-                    if (error) {
-                        console.error('Error inserting data:', error.message);
-                    } else {
-                        console.log('Data inserted successfully:', data);
-                        location.reload();
-                    }
+                const medformURL = data.url;
+
+                // Create JSONB object with the image URL
+                const medformJSONB = {
+                    name: name,
+                    med_form: medformURL,
                 };
+
+                // Insert data into Supabase table
+                const { data: insertData, error: insertError } = await _supabase.from('table_name').insert(medformJSONB);
+
+                if (insertError) {
+                    console.error('Error inserting data:', insertError.message);
+                } else {
+                    console.log('Data inserted successfully:', insertData);
+                    location.reload();
+                }
             } catch (error) {
                 console.error('Error inserting data:', error.message);
             }
         });
 
-        //add image
+        // Add image
         async function uploadFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
@@ -145,7 +144,7 @@
             }
 
             try {
-                // Upload the file to Supabase bucket
+                // Upload the file to Supabase storage
                 const { data, error } = await _supabase.storage.from('records').upload(`${file.name}`, file);
 
                 if (error) {
@@ -157,9 +156,6 @@
                 console.error('Error uploading file:', error);
             }
         }
-
-        //===================================================
-
     </script>
 </body>
 

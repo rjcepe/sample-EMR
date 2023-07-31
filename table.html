@@ -66,16 +66,18 @@
                         <th>${row.id}</th>
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
-                        <td><a href="${convertBase64ToImage(row.med_form)}" target="_blank"><img src="${row.med_form}" class="medf" alt="medform"></a></td>
+                        <td>${row.med_form}</td>
                         <td class="butts">
                             <button class="edit" onclick="editRecord(${row.id})">Edit</button>
                             <button class="del" onclick="deleteData(${row.id})">Delete</button>
-                        </td>
-                    `;
-                    tableBody.appendChild(newRow);
-                });
-            }
-        }
+                            </td>
+                            `;
+                            tableBody.appendChild(newRow);
+                        });
+                    }
+                }
+                // <td><a href="${row.med_form}" target="_blank"><img src="${row.med_form}" class="medf" alt="medform"></a></td>
+
         //delete fucntion
         async function deleteData(id) {
             const { data: deletedData, error } = await _supabase
