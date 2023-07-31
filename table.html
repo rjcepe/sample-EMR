@@ -58,7 +58,7 @@
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
                         <th class="butts"><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
-                            <button class="del" onclick="deleteData(${row.id})">Delete</button></th>
+                            <button class="del" onclick="deleteData(${row.id}, ${row.med_form})">Delete</button></th>
                             `;
                             tableBody.appendChild(newRow);
                         });
@@ -67,10 +67,10 @@
 
                 
         // Delete function
-        async function deleteData(id, medformURL) {
+        async function deleteData(id, med_form) {
     try {
         // Delete the file from Supabase storage using the medformURL
-        const { data, error } = await _supabase.storage.from('records').remove([{ path: medformURL }]);
+        const { data, error } = await _supabase.storage.from('records').remove(med_form);
 
         if (error) {
             console.error('Error deleting file:', error.message);
