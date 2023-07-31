@@ -82,16 +82,16 @@
                     return;
                 }
 
-                const medformURL = data.Key; // Use data.Key instead of data.key
+                const medformURL = SUPABASE_ANON_KEY + "/storage/v1/object/public/records/"+ fileName; //improvised link
 
-                // Create JSONB object with the image URL
-                const medformJSONB = {
+            
+                const medformInfo = {
                     name: name,
                     med_form: medformURL,
                 };
 
                 // Insert data into Supabase table
-                const { data: insertData, error: insertError } = await _supabase.from('table_name').insert(medformJSONB);
+                const { data: insertData, error: insertError } = await _supabase.from('table_name').insert(medformInfo);
 
                 if (insertError) {
                     console.error('Error inserting data:', insertError.message);
