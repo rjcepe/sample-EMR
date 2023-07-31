@@ -31,41 +31,47 @@
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
-    //load data to table
+        function convertBase64ToImage(base64Data) {
+            const imgElement = document.createElement('img');
+            imgElement.src = base64Data;
+            imgElement.alt = 'Image';
+            return imgElement;
+        }
+
+        // Load data to table
         async function loadTableData() {
             const { data: tableData, error } = await _supabase
                 .from('table_name')
                 .select('*')
 
             if (error) {
-                console.log('Error loading table data:', error.message)
-                return
+                console.log('Error loading table data:', error.message);
+                return;
             }
 
-            const tableBody = document.querySelector('#table1 tbody')//call the table
+            const tableBody = document.querySelector('#table1 tbody'); // Call the table
 
-            if (tableData.length === 0) { // if no data in supabase
-                const newRow = document.createElement('tr')
+            if (tableData.length === 0) { // If no data in Supabase
+                const newRow = document.createElement('tr');
                 newRow.innerHTML = `
-            <td colspan="4" style="text-align: center;">No data available</td>
-            `
-                tableBody.appendChild(newRow)
+                    <td colspan="4" style="text-align: center;">No data available</td>
+                `;
+                tableBody.appendChild(newRow);
             } else {
                 tableData.forEach((row) => {
-                    const newRow = document.createElement('tr')
-                    newRow.innerHTML = 
-                `
-                    <th>${row.id}</th>
-                    <th>${row.name}</th>
-                    <th>${row.created_at}</th>
-                    <th>${row.med_form}</th>
-                    <td class="butts">
-                    <button class="edit" onclick="editRecord(${row.id})">Edit</button>
-                    <button class="del" onclick="deleteData(${row.id})">Delete</button>
-                    </td>
-                `
-                    tableBody.appendChild(newRow)
-                })
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <th>${row.id}</th>
+                        <th>${row.name}</th>
+                        <th>${row.created_at}</th>
+                        <td>${convertBase64ToImage(row.med_form)}</td>
+                        <td class="butts">
+                            <button class="edit" onclick="editRecord(${row.id})">Edit</button>
+                            <button class="del" onclick="deleteData(${row.id})">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(newRow);
+                });
             }
         }
         //delete fucntion
