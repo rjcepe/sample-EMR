@@ -71,6 +71,10 @@ body{
 .tablee .butts{
     border: none;
 }
+.butts{
+    display: flex;
+    justify-content: center;
+}
 
 /* width */
 .tablee ::-webkit-scrollbar {

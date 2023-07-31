@@ -17,7 +17,6 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Time Created</th>
-                <th>medform</th>
                 <th>Update</th>
             </tr>
         </table>
@@ -67,11 +66,8 @@
                         <th>${row.id}</th>
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
-                        <td><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button></td>
-                        <td class="butts">
-                            <button class="edit" onclick="editRecord(${row.id})">Edit</button>
-                            <button class="del" onclick="deleteData(${row.id})">Delete</button>
-                            </td>
+                        <th><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
+                            <button class="del" onclick="deleteData(${row.id})">Delete</button></th>
                             `;
                             tableBody.appendChild(newRow);
                         });
