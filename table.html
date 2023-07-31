@@ -34,9 +34,7 @@
 
         // Load data to table
         async function loadTableData() {
-            const { data: tableData, error } = await _supabase
-                .from('table_name')
-                .select('*')
+            const { data: tableData, error } = await _supabase.from('table_name').select('*')
 
             if (error) {
                 console.log('Error loading table data:', error.message);
@@ -74,10 +72,7 @@
                 await _supabase.storage.from('records').remove([medformURL]);
 
                 // Delete the data from the table
-                const { data: deletedData, error } = await _supabase
-                    .from('table_name')
-                    .delete()
-                    .eq('id', id);
+                const { data: deletedData, error } = await _supabase.from('table_name').delete().eq('id', id);
 
                 if (error) {
                     console.log('Error deleting data:', error.message);
@@ -97,8 +92,6 @@
             window.open(url, '_blank');
         }
         
-
-        //====================================
 
         loadTableData()
 
