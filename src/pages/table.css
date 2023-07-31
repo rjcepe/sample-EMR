@@ -53,7 +53,9 @@ body{
     margin: 3px;
     transition: 0.3s;
 }
-
+.view{
+    width: 100px;
+}
 .tablee button:hover{
     background-color: rgb(31, 210, 103);
     color: rgb(0, 0, 0);
@@ -61,7 +63,6 @@ body{
 .edit{
     background-color: rgb(115, 94, 145);
     color: rgb(255, 255, 255);
-
 }
 .del{
     background-color: rgb(192, 64, 64);
