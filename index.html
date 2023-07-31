@@ -103,7 +103,8 @@
 
             try {
                 // Upload the file to Supabase bucket
-                const { data, error } = await supabase.storage.from('records').upload(`folder/${file.name}`, file);
+                const { data, error } = await _supabase.storage.from('records').upload(`folder/${file.name}`, file);
+
 
                 if (error) {
                     console.error('Error uploading file:', error);
