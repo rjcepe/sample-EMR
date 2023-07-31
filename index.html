@@ -112,6 +112,7 @@
                 // Convert the image data to JSONB format
                 const reader = new FileReader();
                 reader.readAsDataURL(medformFile);
+                
                 reader.onloadend = async function () {
                     const medformJSONB = {
                         name: name,
