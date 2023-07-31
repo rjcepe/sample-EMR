@@ -32,13 +32,6 @@
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
-        function convertBase64ToImage(base64Data) {
-            const imgElement = document.createElement('img');
-            imgElement.src = base64Data;
-            imgElement.alt = 'Image';
-            return imgElement;
-        }
-
         // Load data to table
         async function loadTableData() {
             const { data: tableData, error } = await _supabase
