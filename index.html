@@ -33,7 +33,13 @@
 
     </div>
 
+
+
+    <!-- <script src="/src/config/conn.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <script>
+        //define supabase connection
         const SUPABASE_URL = 'https://kyspqmaezagkdwtvyzrr.supabase.co'
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5c3BxbWFlemFna2R3dHZ5enJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE5OTM5MDIsImV4cCI6MTk5NzU2OTkwMn0.CRg9SDoujs_bBJZUgsEWf_B5Y8WX2o9J-uyZpv-D1pM'
 
@@ -44,7 +50,7 @@
         }
         test();
 
-        //insert data function =======================================
+        //insert data fucntion =======================================
         async function insertData(name) {
             const { data: existingData, error } = await _supabase
                 .from('table_name')
@@ -133,7 +139,7 @@
             }
         });
 
-        // Add image
+        //add image
         async function uploadFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
@@ -144,7 +150,7 @@
             }
 
             try {
-                // Upload the file to Supabase storage
+                // Upload the file to Supabase bucket
                 const { data, error } = await _supabase.storage.from('records').upload(`${file.name}`, file);
 
                 if (error) {
@@ -156,6 +162,9 @@
                 console.error('Error uploading file:', error);
             }
         }
+
+        //===================================================
+
     </script>
 </body>
 
