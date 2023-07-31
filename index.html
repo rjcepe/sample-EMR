@@ -47,38 +47,38 @@
         test();
 
         //insert data fucntion =======================================
-        async function insertData(name) {
-            const { data: existingData, error } = await _supabase
-                .from('table_name')
-                .select('*')
-                .eq('name', name)
+        // async function insertData(name) {
+        //     const { data: existingData, error } = await _supabase
+        //         .from('table_name')
+        //         .select('*')
+        //         .eq('name', name)
 
-            if (error) {
-                console.log("errorrr", error.message)
-                return
-            }
-            if (existingData.length > 1) {
-                console.log("Already Existing", existingData)
-                return
-            }
+        //     if (error) {
+        //         console.log("errorrr", error.message)
+        //         return
+        //     }
+        //     if (existingData.length > 1) {
+        //         console.log("Already Existing", existingData)
+        //         return
+        //     }
 
-            // Define data object to insert
-            const data = {
-                name: name,
-            }
+        //     // Define data object to insert
+        //     const data = {
+        //         name: name,
+        //     }
 
             // Insert data into table
-            const { data: insertedData, error: insertError } = await _supabase
-                .from('table_name')
-                .insert(data)
+        //     const { data: insertedData, error: insertError } = await _supabase
+        //         .from('table_name')
+        //         .insert(data)
 
-            // Check for errors
-            if (insertError) {
-                console.log('Error inserting data:', insertError.message)
-            } else {
-                console.log('Data inserted successfully:', insertedData)
-            }
-        }
+        //     // Check for errors
+        //     if (insertError) {
+        //         console.log('Error inserting data:', insertError.message)
+        //     } else {
+        //         console.log('Data inserted successfully:', insertedData)
+        //     }
+        // }
 
         $('#form1').submit(async function (event) {
             event.preventDefault();
