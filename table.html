@@ -65,28 +65,34 @@
                     }
                 }
 
-
+                
         // Delete function
         async function deleteData(id, medformURL) {
-            try {
-                // Delete the file from Supabase storage using the medformURL
-                await _supabase.storage.remove(`${medformURL}`);
+    try {
+        // Delete the file from Supabase storage using the medformURL
+        const { data, error } = await _supabase.storage.from('records').remove([{ path: medformURL }]);
 
-                // Delete the data from the table
-                const { data: deletedData, error } = await _supabase.from('table_name').delete().eq('id', id);
-
-                if (error) {
-                    console.log('Error deleting data:', error.message);
-                } else {
-                    console.log('Data deleted successfully:', deletedData);
-                }
-
-                location.reload();
-
-            } catch (error) {
-                console.error('Error deleting data:', error.message);
-            }
+        if (error) {
+            console.error('Error deleting file:', error.message);
+        } else {
+            console.log('File deleted successfully:', data);
         }
+
+        // Delete the data from the table
+        const { data: deletedData, error: deleteError } = await _supabase.from('table_name').delete().eq('id', id);
+
+        if (deleteError) {
+            console.log('Error deleting data:', deleteError.message);
+        } else {
+            console.log('Data deleted successfully:', deletedData);
+        }
+
+        location.reload();
+    } catch (error) {
+        console.error('Error deleting data:', error.message);
+    }
+}
+
 
         //open medform in another tab
         function openMedForm(url) {
