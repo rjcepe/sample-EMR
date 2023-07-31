@@ -17,15 +17,11 @@
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br>
             <label for="medform">Upload Medform:</label>
-            <input type="file" id="medform" name="medform" required><br> 
+            <input type="file" id="medform" name="medform" required><br>
             <!-- upload file to table -->
 
             <button type="submit" id="submit">Create</button>
         </form>
-
-        <input type="file" id="fileInput">
-        <button onclick="uploadFile()">Upload File</button>
-        <!-- upload file to storage -->
 
 
         <a class="table" href="/table.html"> View table</a>
@@ -117,7 +113,7 @@
                     return;
                 }
 
-                const medformURL = data.key;
+                const medformURL = data.key; // Use data.key instead of data.Key
 
                 // Create JSONB object with the image URL
                 const medformJSONB = {
@@ -134,34 +130,9 @@
                     console.log('Data inserted successfully:', insertData);
                     location.reload();
                 }
-            } catch (error) {
-                console.error('Error inserting data:', error.message);
-            }
-        });
 
-        //add image
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
+            });
 
-            if (!file) {
-                alert('Please select a file first.');
-                return;
-            }
-
-            try {
-                // Upload the file to Supabase bucket
-                const { data, error } = await _supabase.storage.from('records').upload(`${file.name}`, file);
-
-                if (error) {
-                    console.error('Error uploading file:', error);
-                } else {
-                    console.log('File uploaded successfully:', data);
-                }
-            } catch (error) {
-                console.error('Error uploading file:', error);
-            }
-        }
 
         //===================================================
 
