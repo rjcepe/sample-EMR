@@ -120,7 +120,7 @@
                 };
 
                 // Insert data into Supabase table
-                const { data: insertResponse, error: insertError } = await _supabase.from('table_name').insert(medformJSONB);
+                const { data: insertData, error: insertError } = await _supabase.from('table_name').insert(medformJSONB);
 
                 if (insertError) {
                     console.error('Error inserting data:', insertError.message);
