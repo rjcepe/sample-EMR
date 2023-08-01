@@ -57,9 +57,8 @@
                         <th>${row.id}</th>
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
-                        <th class="butts">
-                                <button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
-                                <button class="del" onclick="deleteData(${row.id}, '${row.med_form}')">Delete</button></th>
+                        <th class="butts"><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
+                            <button class="del" onclick="deleteData(${row.id})">Delete</button></th>
                             `;
                             tableBody.appendChild(newRow);
                         });
@@ -68,30 +67,19 @@
 
                 
         // Delete function
-        async function deleteData(id, medformURL) {
+        async function deleteData(id, med_form) {
     try {
-        if (!medformURL) {
-            console.log('Error deleting data: medformURL is missing or undefined.');
-            return;
-        }
-
-        // Extract the filename from the medformURL
-        const fileName = medformURL.split('/').pop();
-
-        console.log('Deleting file:', fileName);
-
-        // Delete the file from Supabase storage using the filename
-        const { data, error } = await _supabase.storage.from('records').remove([{ file: fileName }]);
+        // Delete the file from Supabase storage using the medformURL
+        const { data, error } = await _supabase.storage.from('records').remove(med_form);
 
         if (error) {
-            console.log('Error deleting file:', error.message);
-            return;
+            console.error('Error deleting file:', error.message);
+        } else {
+            console.log('File deleted successfully:', data);
         }
 
-        console.log('File deleted successfully:', data);
-
         // Delete the data from the table
-        const { data: deletedData, deleteError } = await _supabase.from('table_name').delete().eq('id', id);
+        const { data: deletedData, error: deleteError } = await _supabase.from('table_name').delete().eq('id', id);
 
         if (deleteError) {
             console.log('Error deleting data:', deleteError.message);
@@ -99,14 +87,11 @@
             console.log('Data deleted successfully:', deletedData);
         }
 
-        location.reload();
-
+        // location.reload();
     } catch (error) {
         console.error('Error deleting data:', error.message);
     }
 }
-
-
 
 
         //open medform in another tab
