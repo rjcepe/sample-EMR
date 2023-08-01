@@ -78,6 +78,8 @@
         // Extract the filename from the medformURL
         const fileName = medformURL.split('/').pop();
 
+        console.log('Deleting file:', fileName);
+
         // Delete the file from Supabase storage using the filename
         const { data, error } = await _supabase.storage.from('records').remove([{ file: fileName }]);
 
@@ -103,6 +105,7 @@
         console.error('Error deleting data:', error.message);
     }
 }
+
 
 
 
