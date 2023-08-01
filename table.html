@@ -70,14 +70,26 @@
         // Delete function
         async function deleteData(id, medformURL) {
     try {
+        if (!medformURL) {
+            console.log('Error deleting data: medformURL is missing or undefined.');
+            return;
+        }
+
         // Extract the filename from the medformURL
         const fileName = medformURL.split('/').pop();
 
         // Delete the file from Supabase storage using the filename
-        await _supabase.storage.from('records').remove([fileName]);
+        const { data, error } = await _supabase.storage.from('records').remove([{ file: fileName }]);
+
+        if (error) {
+            console.log('Error deleting file:', error.message);
+            return;
+        }
+
+        console.log('File deleted successfully:', data);
 
         // Delete the data from the table
-        const { data: deletedData, error: deleteError } = await _supabase.from('table_name').delete().eq('id', id);
+        const { data: deletedData, deleteError } = await _supabase.from('table_name').delete().eq('id', id);
 
         if (deleteError) {
             console.log('Error deleting data:', deleteError.message);
@@ -85,11 +97,13 @@
             console.log('Data deleted successfully:', deletedData);
         }
 
-        // location.reload();
+        location.reload();
+
     } catch (error) {
         console.error('Error deleting data:', error.message);
     }
 }
+
 
 
         //open medform in another tab
