@@ -69,7 +69,7 @@
 
                 // Change the filename to "(name inputted)_medform"
                 const fileName = `${name}_medform.${medformFile.name.split('.').pop()}`;
-
+                
                 // Upload the file to Supabase storage with the modified filename
                 const { data, error: uploadError } = await _supabase.storage.from('records').upload(fileName, medformFile);
 
@@ -77,7 +77,7 @@
                     console.error('Error uploading file:', uploadError);
                     return;
                 }
-
+                
                 const medformURL = SUPABASE_URL + "/storage/v1/object/public/records/"+ fileName; //improvised link
                 // const medformURL = data.key; 
 
