@@ -67,10 +67,10 @@
 
                 
         // Delete function
-        async function deleteData(id, medformFile) {
+        async function deleteData(id, fileName) {
     try {
         // Delete the file from Supabase storage using the medformURL
-        const { data, error } = await _supabase.storage.from('records/medforms').remove(medformFile);
+        const { data, error } = await _supabase.storage.from('records/medforms').remove(fileName);
 
         if (error) {
             console.error('Error deleting file:', error.message);
