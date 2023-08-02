@@ -9,7 +9,7 @@ generator client {
 
 model table_name {
   id         BigInt    @id @default(autoincrement())
-  created_at DateTime? @default(now())
+  created_at Date?     @default(now())
   name       String?   @db.VarChar(255)
   med_form   String?   @db.VarChar(255)
 }
