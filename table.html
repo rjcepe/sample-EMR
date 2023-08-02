@@ -65,19 +65,20 @@
                     }
                 }
 
-        
+        const { data: getname, error1 } = await _supabase.from('table_name').select('name').eq('id', id);
+
+        const name1 = getname.map(item => item.name);
+        console.log(name1);
+
                 
         // Delete function
         async function deleteData(id) {
     try {
 
-        const { data: getname, error1 } = await _supabase.from('table_name').select('name').eq('id', id);
-
-        const name1 = getname.map(item => item.name);
+        
         // Delete the file from Supabase storage using the medformURL
         const { data, error } = await _supabase.storage.from('records/medforms/').remove('${name}_medform');
 
-        console.log(name1);
 
         if (error) {
             console.error('Error deleting file:', error.message);
