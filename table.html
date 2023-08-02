@@ -81,7 +81,7 @@
 
         const nameget = namesString + "_medform";
 
-        console.log(namesString);
+        console.log(nameget);
         
         // Delete the file from Supabase storage using the medformURL
         const { data, error } = await _supabase.storage.from('records/medforms').remove(nameget);
