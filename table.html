@@ -84,7 +84,7 @@
         console.log(nameget);
         
         // Delete the file from Supabase storage using the medformURL
-        const { data, error } = await _supabase.storage.from('records/medforms/').select('*');
+        const { data, error } = await _supabase.storage.from('records').remove('medforms/nameget');
 
 
         if (error) {
