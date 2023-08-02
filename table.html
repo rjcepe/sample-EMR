@@ -79,10 +79,12 @@
         const namesArray = getname.map(item => item.name);
         const namesString = namesArray.join(', ');
 
+        const nameget = namesString + "_medform";
+
         console.log(namesString);
         
         // Delete the file from Supabase storage using the medformURL
-        const { data, error } = await _supabase.storage.from('records/medforms/').remove(namesString + "_medform");
+        const { data, error } = await _supabase.storage.from('records/medforms').remove(nameget);
 
 
         if (error) {
