@@ -67,8 +67,10 @@
 
         const { data: getname, error1 } = await _supabase.from('table_name').select('name').eq('id', id);
 
-        const name1 = getname.map(item => item.name);
-        console.log(name1);
+        const namesArray = getname.map(item => item.name);
+        const namesString = namesArray.join(', ');
+
+        console.log(namesString);
 
                 
         // Delete function
