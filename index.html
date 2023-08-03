@@ -80,9 +80,6 @@
                 
                 const medformURL = SUPABASE_URL + "/storage/v1/object/public/records/"+ fileName; //improvised link
                 
-                const { data1 } = _supabase.storage.from('records').getPublicUrl([name]);
-                
-                console.log(data1);
             
                 const medformInfo = {
                     name: name,
