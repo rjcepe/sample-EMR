@@ -22,7 +22,7 @@
         </table>
         <a class="table" href="/index.html"> Go Back</a>
         <a href=""></a>
-        
+
     </div>
 
     <script>
@@ -52,70 +52,98 @@
             } else {
                 tableData.forEach((row) => {
                     const newRow = document.createElement('tr');
-                    
+
                     newRow.innerHTML = `
                         <th>${row.id}</th>
                         <th>${row.name}</th>
                         <th>${row.created_at}</th>
                         <th class="butts"><button class="edit view" onclick="openMedForm('${row.med_form}')">View medform</button>
+                            <button class="edit" onclick="editData(${row.id}, '${row.name}', '${row.created_at}')">Edit</button>
                             <button class="del" onclick="deleteData(${row.id})">Delete</button></th>
                             `;
-                            tableBody.appendChild(newRow);
-                        });
+                    tableBody.appendChild(newRow);
+                });
+            }
+        }
+
+        //edit data in row
+        async function editData(id, name, createdAt) {
+            try {
+                // Get the new values from the user (you can implement this as needed)
+                const newName = prompt('Enter new name:', name);
+                const newCreatedAt = prompt('Enter new time created:', createdAt);
+
+                if (newName === null || newName.trim() === '' || newCreatedAt === null || newCreatedAt.trim() === '') {
+                    // If the user cancels or leaves the input fields empty, do nothing
+                    return;
+                }
+
+                // Update the data in the table
+                const { data: updatedData, error: updateError } = await _supabase
+                    .from('table_name')
+                    .update({ name: newName, created_at: newCreatedAt })
+                    .eq('id', id);
+
+                if (updateError) {
+                    console.log('Error updating data:', updateError.message);
+                } else {
+                    console.log('Data updated successfully:', updatedData);
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error updating data:', error.message);
+            }
+        }
+
+
+        // Delete function
+        async function deleteData(id) {
+            try {
+
+                //get name of corresponding row
+                const { data: getname, error1 } = await _supabase.from('table_name').select('name').eq('id', id);
+
+                //convert to string
+                const namesArray = getname.map(item => item.name);
+                const namesString = namesArray.join(', ');
+
+                const nameget = namesString + "_medform.png";
+
+                console.log(nameget);
+
+                // Delete the file from Supabase storage using the medformURL
+                const { data, error } = await _supabase.storage.from('records').remove([nameget]);
+
+                if (error) {
+                    console.error('Error deleting file:', error.message);
+                } else {
+                    console.log('File deleted successfully:', data);
+
+                    // Delete the data from the table
+                    const { data: deletedData, error: deleteError } = await _supabase.from('table_name').delete().eq('id', id);
+
+                    if (deleteError) {
+                        console.log('Error deleting data:', deleteError.message);
+                    } else {
+                        console.log('Data deleted successfully:', deletedData);
+                        location.reload();
                     }
                 }
 
-        
 
-                
-        // Delete function
-        async function deleteData(id) {
-    try {
-        
-        //get name of corresponding row
-        const { data: getname, error1 } = await _supabase.from('table_name').select('name').eq('id', id);
 
-        //convert to string
-        const namesArray = getname.map(item => item.name);
-        const namesString = namesArray.join(', ');
-
-        const nameget = namesString + "_medform.png";
-
-        console.log(nameget);
-        
-        // Delete the file from Supabase storage using the medformURL
-        const { data, error } = await _supabase.storage.from('records').remove([nameget]);
-
-        if (error) {
-            console.error('Error deleting file:', error.message);
-        } else {
-            console.log('File deleted successfully:', data);
-            
-            // Delete the data from the table
-            const { data: deletedData, error: deleteError } = await _supabase.from('table_name').delete().eq('id', id);
-
-                if (deleteError) {
-                    console.log('Error deleting data:', deleteError.message);
-                } else {
-                    console.log('Data deleted successfully:', deletedData);
-                    location.reload();
+                // location.reload();
+            } catch (error) {
+                console.error('Error deleting data:', error.message);
+            }
         }
-        }
-
-        
-
-        // location.reload();
-    } catch (error) {
-        console.error('Error deleting data:', error.message);
-    }
-    }
 
 
         //open medform in another tab
         function openMedForm(url) {
             window.open(url, '_blank');
         }
-        
+
         loadTableData()
 
         //====================================
